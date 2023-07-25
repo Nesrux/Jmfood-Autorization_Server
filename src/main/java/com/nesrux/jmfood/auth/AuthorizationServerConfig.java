@@ -3,6 +3,7 @@ package com.nesrux.jmfood.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -17,7 +18,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private PasswordEncoder pass;
 	@Autowired
-	AuthenticationManager menager;
+	private	AuthenticationManager menager;
+	@Autowired
+	private UserDetailsService detailsService;
 	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -25,18 +28,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		clients.inMemory()
 			.withClient("jmfoodWeb")
 				.secret(pass.encode("web123"))
-				.authorizedGrantTypes("password")
+				.authorizedGrantTypes("password", "refresh_token")
 				.scopes("write", "read")
 			.and()
-				.withClient("jmfoodMobile")
-				.secret(pass.encode("mobile123"))
-				.authorizedGrantTypes("password")
+				.withClient("checkToken")
+				.secret(pass.encode("token123"))
+				.authorizedGrantTypes("password", "refresh_token")
 				.scopes("write", "read");
+		
 	}
 	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(menager);
+		endpoints
+			.authenticationManager(menager)
+			.userDetailsService(detailsService);
 	}
 	
 	@Override
