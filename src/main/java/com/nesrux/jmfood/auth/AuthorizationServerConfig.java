@@ -35,10 +35,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.and()
 				.withClient("checkToken")
 				.secret(pass.encode("token123"))
-				.authorizedGrantTypes("password", "refresh_token")
-				.accessTokenValiditySeconds(60 * 60 * 6)
-				.accessTokenValiditySeconds(60 * 60 * 24 * 5)// 5 dias
-				.scopes("write", "read");
+			.and()
+			.withClient("jmfood-faturamento")
+			.secret(pass.encode("faturamento123"))
+			.authorizedGrantTypes("client_credentials")
+			.scopes("read");
 		
 	}
 	
