@@ -36,11 +36,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.withClient("checkToken")
 				.secret(pass.encode("token123"))
 			.and()
-			.withClient("jmfood-faturamento")
-			.secret(pass.encode("faturamento123"))
-			.authorizedGrantTypes("client_credentials")
-			.scopes("read");
-		
+				.withClient("jmfood-faturamento")
+				.secret(pass.encode("faturamento123"))
+				.authorizedGrantTypes("client_credentials")
+				.scopes("read")
+			.and()
+				.withClient("foodanalytics")
+				.secret(pass.encode("food123"))
+				.authorizedGrantTypes("authorization_code")
+				.redirectUris("http://aplicacao-cliente")
+				.scopes("read", "write");
+			
 	}
 	
 	@Override
