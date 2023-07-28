@@ -1,6 +1,7 @@
 package com.nesrux.jmfood.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
@@ -55,13 +57,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints
 			.authenticationManager(menager)
 			.userDetailsService(detailsService)
-			.reuseRefreshTokens(false); //Ele invalida o refresh token antigo	
-		}
+			.reuseRefreshTokens(false) //Ele invalida o refresh token antigo	
+			.accessTokenConverter(jwtAccessTokenConverter());
+	}
 	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 	//	security.checkTokenAccess("isAuthenticated()"); precisa do login e senha do user
 		security.checkTokenAccess("permitAll()");//Não precisa de login e senha, qualquer um consegue ver a autenticação
+	}
+	@Bean
+	public JwtAccessTokenConverter jwtAccessTokenConverter(){
+		JwtAccessTokenConverter jwt =  new JwtAccessTokenConverter();
+		jwt.setSigningKey("jmfoodApiComida123456");
+		
+		return jwt;
 	}
 
 }
