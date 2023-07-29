@@ -60,7 +60,8 @@
 			<artifactId>spring-security-jwt</artifactId>
 			<version>${spring-security-jwt.version}</version>
 		</dependency>
-		
+
+	
 	</dependencies>
 
 	<build>

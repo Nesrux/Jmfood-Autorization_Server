@@ -25,6 +25,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	private	AuthenticationManager menager;
 	@Autowired
 	private UserDetailsService detailsService;
+	@Autowired
+	private JwtKeyStoreProperties keyProperties;
 	
 	
 	@Override
@@ -73,12 +75,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		JwtAccessTokenConverter jwt =  new JwtAccessTokenConverter();
 		//jwt.setSigningKey("jkaie3049kanc8alpeo029irydhznalep029alsk18s"); chave simétrica
 		
-		var JksResource = new ClassPathResource("keystore/jmfood.jks");
-		var keyStorePass = "marcos10"; //Senha do jks
-		var KeyPairAlias = "jmfood";
+		var JksResource = new ClassPathResource(keyProperties.getPath());
 		
-		var keyStoreKeyFactory = new KeyStoreKeyFactory(JksResource, keyStorePass.toCharArray());
-		var keyPair =  keyStoreKeyFactory.getKeyPair(KeyPairAlias);
+		var keyStoreKeyFactory = new KeyStoreKeyFactory(JksResource, keyProperties.getPassword().toCharArray());
+
+		var keyPair =  keyStoreKeyFactory.getKeyPair(keyProperties.getAlias());
 		
 		jwt.setKeyPair(keyPair);
 
