@@ -68,7 +68,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 	//	security.checkTokenAccess("isAuthenticated()"); precisa do login e senha do user
-		security.checkTokenAccess("permitAll()");//Não precisa de login e senha, qualquer um consegue ver a autenticação
+		security
+		.checkTokenAccess("permitAll()")
+		.tokenKeyAccess("permitAll()");//Não precisa de login e senha, qualquer um consegue ver a autenticação
 	}
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter(){
