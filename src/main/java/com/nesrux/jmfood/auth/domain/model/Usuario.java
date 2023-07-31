@@ -1,4 +1,4 @@
-package com.nesrux.jmfood.auth.domain;
+package com.nesrux.jmfood.auth.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
