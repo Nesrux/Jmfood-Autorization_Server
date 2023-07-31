@@ -1,14 +1,10 @@
 package com.nesrux.jmfood.auth.domain;
 
-import java.time.OffsetDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,11 +27,6 @@ public class Usuario {
 
 	@Column(nullable = false)
 	private String senha;
-
-	@Column(nullable = false)
-	@UpdateTimestamp
-	private OffsetDateTime dataCadastro;
-
 
 
 }
