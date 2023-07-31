@@ -1,4 +1,4 @@
-package com.nesrux.jmfood.auth;
+package com.nesrux.jmfood.auth.core;
 
 import javax.validation.constraints.NotBlank;
 

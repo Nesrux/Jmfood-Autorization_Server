@@ -1,4 +1,4 @@
-package com.nesrux.jmfood.auth;
+package com.nesrux.jmfood.auth.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
