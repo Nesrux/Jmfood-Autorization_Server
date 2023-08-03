@@ -12,13 +12,15 @@ import lombok.Getter;
 public class AuthUser extends User {
 
 	private String nome;
-	private String email;
+	private Long id;
 
 	private static final long serialVersionUID = 1L;
 
 	public AuthUser(Usuario usuario) {
 		super(usuario.getEmail(), usuario.getSenha(), Collections.emptyList());
+		
 		this.nome = usuario.getNome();
+		this.id = usuario.getId();
 	}
 
 }

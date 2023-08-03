@@ -1,5 +1,6 @@
 package com.nesrux.jmfood.auth.core;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +11,8 @@ import com.nesrux.jmfood.auth.domain.repository.UsuarioRepository;
 
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
-
+	
+	@Autowired
 	private UsuarioRepository repository;
 
 	@Override
