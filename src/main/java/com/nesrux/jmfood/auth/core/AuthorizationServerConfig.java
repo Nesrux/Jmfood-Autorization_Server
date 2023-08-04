@@ -42,7 +42,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.withClient("jmfoodWeb")
 				.secret(pass.encode("web123"))
 				.authorizedGrantTypes("password", "refresh_token")
-				.scopes("write", "read")
+				.scopes("WRITE", "READ")
 				.accessTokenValiditySeconds(60 * 60 * 6) // 6 horas
 				.refreshTokenValiditySeconds(60 * 60 * 24 * 7) //7 dias
 			.and()
@@ -52,13 +52,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.withClient("jmfood-faturamento")
 				.secret(pass.encode("faturamento123"))
 				.authorizedGrantTypes("client_credentials")
-				.scopes("read")
+				.scopes("READ")
 			.and()
 				.withClient("foodanalytics")
 				.secret(pass.encode("food123"))
 				.authorizedGrantTypes("authorization_code")
 				.redirectUris("http://aplicacao-cliente")
-				.scopes("read", "write");
+				.scopes("READ", "WRITE");
 			
 	}
 	
