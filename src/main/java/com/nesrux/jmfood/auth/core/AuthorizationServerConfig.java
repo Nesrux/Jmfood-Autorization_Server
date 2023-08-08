@@ -2,13 +2,14 @@ package com.nesrux.jmfood.auth.core;
 
 import java.util.Arrays;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -25,20 +26,22 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 	
-	@Autowired
-	private PasswordEncoder pass;
+
 	@Autowired
 	private	AuthenticationManager menager;
 	@Autowired
 	private UserDetailsService detailsService;
 	@Autowired
 	private JwtKeyStoreProperties keyProperties;
-	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-		clients.inMemory()
+		clients.jdbc(dataSource);
+		
+		/*
+		 * clients.inMemory()
 			.withClient("jmfoodWeb")
 				.secret(pass.encode("web123"))
 				.authorizedGrantTypes("password", "refresh_token")
@@ -59,6 +62,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.authorizedGrantTypes("authorization_code")
 				.redirectUris("http://aplicacao-cliente")
 				.scopes("READ", "WRITE");
+			*/
 			
 	}
 	
